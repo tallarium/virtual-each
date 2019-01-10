@@ -40,13 +40,15 @@ const VirtualEachComponent = Component.extend(EventListenerMixin, DefaultAttrsMi
     scroll(e) {
       e.preventDefault();
 
-      let scrollTimeout = this.getAttr('scrollTimeout');
-
-      if (scrollTimeout && this.isWebkit && this._scrolledByWheel) {
-        this._scrolledByWheel = false;
-        this._scrollThrottleTimeut = run.throttle(this, this.calculateVisibleItems, scrollTimeout);
-        return;
-      }
+      // with scroll throttle calculateVisibleItems is not called until scrolling finishes.
+      // Or worse, just before scrolling finishes.  Resulting in partially populated list
+      // let scrollTimeout = this.getAttr('scrollTimeout');
+      //
+      // if (scrollTimeout && this.isWebkit && this._scrolledByWheel) {
+      //   this._scrolledByWheel = false;
+      //   this._scrollThrottleTimeut = run.throttle(this, this.calculateVisibleItems, scrollTimeout);
+      //   return;
+      // }
 
       this.calculateVisibleItems();
     }
