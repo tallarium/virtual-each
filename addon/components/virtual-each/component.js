@@ -104,6 +104,12 @@ const VirtualEachComponent = Component.extend(EventListenerMixin, DefaultAttrsMi
     }
   }).readOnly(),
 
+  _totalHeight: computed('_items.length', 'itemHeight', {
+    get() {
+      return Math.max(get(this, '_items.length') * this.getAttr('itemHeight'), 0);
+    }
+  }).readOnly(),
+
   _marginTop: computed('_totalHeight', '_startAt', '_itemCount', 'itemHeight', 'bufferSize', {
     get() {
       let bufferSize = get(this, 'bufferSize');
@@ -129,7 +135,6 @@ const VirtualEachComponent = Component.extend(EventListenerMixin, DefaultAttrsMi
     setProperties(this, {
       _items: emberArray(),
       _startAt: 0,
-      _totalHeight: 0,
       _scrolledByWheel: false
     });
   },
@@ -176,7 +181,6 @@ const VirtualEachComponent = Component.extend(EventListenerMixin, DefaultAttrsMi
       setProperties(this, {
         _items: items,
         _positionIndex: this.getAttr('positionIndex'),
-        _totalHeight: Math.max(get(items, 'length') * this.getAttr('itemHeight'), 0)
       });
     });
   },
