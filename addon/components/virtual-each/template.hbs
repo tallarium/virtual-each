@@ -1,11 +1,11 @@
 <ul class="infinite-list-content" style={{contentStyle}}>
-{{#each visibleItems key='@index' as |item idx|}}
-  <li class="virtual-item visible-item-{{idx}}">
-    {{yield item.raw item.actualIndex item.virtualIndex}}
-  </li>
-{{else}}
-  <li class="virtual-list-empty">
-    {{yield to='inverse'}}
-  </li>
-{{/each}}
+  {{#each visibleItems key='raw' as |item idx|}}
+    <li class="virtual-item visible-item-{{idx}}">
+      {{yield item.raw item.actualIndex item.virtualIndex _itemCount}}
+    </li>
+  {{else}}
+    <li class="virtual-list-empty">
+      {{yield to='inverse'}}
+    </li>
+  {{/each}}
 </ul>
